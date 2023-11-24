@@ -1,0 +1,90 @@
+
+<div class="mx-auto text-center mb-5">
+      <h1 class="m-4">Make your team</h1>
+
+      <div *ngFor="let user of users" class="card mb-1 shadow mb-5 mx-auto" style="max-width: 740px;">
+            <div class="row ps-2">
+                  <div class="col p-3">
+                        <img [src]="user.avatar" class="img-fluid rounded-start bg-secondary">
+                  </div>
+                  <div class="col-md-8">
+                        <div class="card-body text-dark">
+                              <h3 class="card-title mb-4 border">{{ user.username | uppercase }}</h3>
+                              <p class="text-start ms-2"><small>ID : {{ user.id }}</small></p>
+                              <p class="text-start ms-2"><small>Gender : {{ user.gender }}</small></p>
+                              <p class="text-start ms-2"><small>Date of birth : {{ user.date_of_birth }}</small></p>
+
+                        <div class="d-grid gap-2 ">
+                              <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <button type="button" class="btn btn-danger" (click)="getRobot()">Change</button>
+                                    <button type="button" class="btn btn-warning" (click)="addTeamMember(user)" >Add team</button>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">See your team</button>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <div *ngIf="team.length" class="p-2">
+            <table class="table table-striped caption-top">
+                  <caption class="pb-2">Your Team list <span class="text-danger ms-4">{{ message }}</span></caption>
+                  <thead></thead>
+                  <tbody>
+                        <tr *ngFor="let teamMember of team">
+                              <td> Id : {{ teamMember.id}}</td>
+                              <td> First name : {{ teamMember.first_name  | uppercase }}</td>
+                              <td> Last name : {{ teamMember.last_name  | uppercase }}</td>
+                              <td> <button type="button" class="btn-close" aria-label="Close" (click)="deleteTeamMember(teamMember.id)"></button></td>
+                        </tr>
+                  </tbody>
+            </table>
+      </div>
+</div>
+    
+    <!-- Modal -->
+<div class="modal modal-lg" id="exampleModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+            <div class="modal-content">
+                  <div class="modal-header">
+                        <h1 class="modal-title fs-5">Your Team</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                        <div *ngIf="team?.length;else no_team" class="mx-auto text-center p-1">
+                              <div class="row row-cols-1 row-cols-md-3 g-2">
+                                    <div *ngFor="let teamMember of team"  class="col">
+                                          <div class="card text-dark shadow mb-5">
+                                                <img [src]="teamMember.avatar" class="card-img-top bg-secondary">
+                                                <div class="card-body border">
+                                                      <h5 class="card-title mb-4 border"><small>{{ teamMember.username | uppercase }}</small></h5>
+                                                      <div class="d-grid gap-2">     
+                                                            <button type="button" class="btn btn-danger mt-2" (click)="deleteTeamMember(teamMember.id)">
+                                                                  kick off the team !
+                                                            </button>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div> 
+                        </div>
+                  </div>
+                  <div *ngIf="team?.length" class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+
+                  <ng-template #no_team>
+                        <div class="modal-body">
+                              <div class="d-grid gap-2">     
+                                    <button type="button" class="btn btn-primary m-4" data-bs-dismiss="modal">
+                                          Return to make your choice
+                                    </button>
+                              </div>
+                        </div>
+                  </ng-template>
+
+            </div>
+      </div>
+</div>
+
+
+

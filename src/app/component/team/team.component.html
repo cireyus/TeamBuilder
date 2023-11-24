@@ -1,0 +1,38 @@
+<div *ngIf="team?.length;else no_team" class="mx-auto text-center p-5">
+  <div class="d-grid gap-2">     
+    <button type="button" class="btn btn-outline-secondary mb-4" routerLink="/user">
+      Go Back
+    </button>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div *ngFor="let teamMember of team"  class="col">
+          <div class="card text-dark shadow mb-5">
+            <img [src]="teamMember.avatar" class="card-img-top bg-secondary">
+            <div class="card-body border">
+              <h5 class="card-title mb-4 border">{{ teamMember.username | uppercase }}</h5>
+              <p class="text-start ms-3">id : {{ teamMember.id }}</p>
+              <p class="text-start ms-3">Nom de famille : {{ teamMember.last_name | uppercase}}</p>
+              <p class="text-start ms-3">Prénom : {{ teamMember.first_name | uppercase}}</p>
+              <p class="text-start ms-3">Genre : {{ teamMember.gender | uppercase}}</p>  
+
+              <div class="d-grid gap-2">     
+                <button type="button" class="btn btn-danger mt-2" aria-label="Close" (click)="deleteTeamMember(teamMember.id)">
+                  kick off the team !
+                </button>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div> 
+</div>
+
+<ng-template #no_team>
+    <p class="text-center mt-4">You should build your Team </p>
+    <div class="d-grid gap-2">     
+      <button type="button" class="btn btn-primary m-4" routerLink="/user">
+        Return to make your choice
+      </button>
+    </div>
+</ng-template>
+
